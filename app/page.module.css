@@ -84,6 +84,17 @@
   font-weight: 500;
 }
 
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 50px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 70px 60px;
+  background: #ededed;
+}
+
 a.primary {
   background: var(--text-primary);
   color: var(--background);
@@ -138,6 +149,21 @@ a.secondary {
     --button-primary-hover: #ccc;
     --button-secondary-hover: #1a1a1a;
     --button-secondary-border: #1a1a1a;
+  }
+}
+
+@media (max-width: 1000px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
   }
 }
 
