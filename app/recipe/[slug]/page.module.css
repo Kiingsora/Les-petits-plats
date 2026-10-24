@@ -1,0 +1,223 @@
+@font-face {
+  font-family: "Recipe Anton";
+  src: url("/fonts/Anton-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Recipe Manrope";
+  src: url("/fonts/Manrope-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: #1b1b1b;
+  font-family: "Recipe Manrope", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color-scheme: light;
+}
+
+/* La photo sert de fond à la petite bannière. */
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 130px;
+  padding: 30px 70px;
+  overflow: hidden;
+  background: #24251c;
+}
+
+.bannerImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 47%;
+  filter: brightness(0.48);
+}
+
+.logoLink {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+}
+
+.logoLink img {
+  display: block;
+  width: 207px;
+  max-width: 100%;
+  height: auto;
+}
+
+.logoLink:focus-visible {
+  outline: 3px solid #ffd15b;
+  outline-offset: 8px;
+}
+
+/* Deux colonnes : photo à gauche, contenu à droite. */
+.recipe {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 80px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 70px 90px;
+  flex: 1;
+}
+
+.recipeImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 600 / 730;
+  object-fit: cover;
+  border-radius: 21px;
+}
+
+.details {
+  min-width: 0;
+}
+
+.details h1 {
+  margin: 0 0 32px;
+  color: #000;
+  font-family: "Recipe Anton", Impact, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.details section + section {
+  margin-top: 40px;
+}
+
+.details h2 {
+  margin: 0 0 12px;
+  color: #7a7a7a;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.time {
+  display: inline-block;
+  padding: 4px 15px;
+  border-radius: 20px;
+  background: #ffd15b;
+  font-size: 14px;
+}
+
+.ingredients,
+.equipment {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ingredients li,
+.equipment li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ingredients p,
+.equipment p {
+  margin: 0;
+}
+
+.ingredients li p + p {
+  color: #7a7a7a;
+}
+
+.instructions ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.instructions ul {
+  margin: 0;
+  padding-left: 22px;
+  list-style-type: disc;
+}
+
+.instructions li {
+  padding-left: 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 30px 20px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Sur tablette, les deux colonnes gardent des marges plus petites. */
+@media (max-width: 1100px) {
+  .header {
+    min-height: 110px;
+    padding: 25px 40px;
+  }
+
+  .recipe {
+    gap: 40px;
+    padding: 50px 40px;
+  }
+
+  .ingredients,
+  .equipment {
+    gap: 24px 14px;
+  }
+}
+
+/* Sur mobile, la photo passe au-dessus des informations. */
+@media (max-width: 700px) {
+  .header {
+    min-height: 90px;
+    padding: 24px;
+  }
+
+  .logoLink img {
+    width: 180px;
+  }
+
+  .recipe {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 32px 24px 48px;
+  }
+
+  .recipeImage {
+    aspect-ratio: 1;
+  }
+
+  .ingredients,
+  .equipment {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer {
+    min-height: 110px;
+  }
+}
