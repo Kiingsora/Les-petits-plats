@@ -78,10 +78,14 @@
   flex: 1;
 }
 
-.recipeImage {
-  display: block;
+.recipeImageContainer {
+  position: relative;
   width: 100%;
   aspect-ratio: 600 / 730;
+}
+
+.recipeImage {
+  display: block;
   object-fit: cover;
   border-radius: 21px;
 }
@@ -208,7 +212,7 @@
     padding: 32px 24px 48px;
   }
 
-  .recipeImage {
+  .recipeImageContainer {
     aspect-ratio: 1;
   }
 

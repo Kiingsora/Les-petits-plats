@@ -1,12 +1,14 @@
 
 import Link from "next/link";
 import styles from "./Card.module.css"
+import Image from "next/image";
+
 export default function Card({ recipe }) {
     return (
         <Link href={`/recipe/${recipe.slug}`}>
             <article className={styles.card}><div>
                 <span>{recipe.time}min</span>
-                <img src={`/JSON_recipes/${recipe.image}`} alt={recipe.name} />
+                <Image src={`/JSON_recipes/${recipe.image}`} alt={recipe.name} width={400} height={253} />
             </div>
                 <h2>{recipe.name}</h2>
                 <div>

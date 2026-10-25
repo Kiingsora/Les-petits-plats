@@ -1,5 +1,6 @@
 import styles from "./page.module.css";
 import Link from "next/link";
+import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
 import Recipes from "@/app/data/recipes.json";
 
@@ -13,12 +14,21 @@ export default async function Page({ params }) {
         <div className={styles.page}>
             <header className={styles.header}>
                 <Link href="/" className={styles.logoLink}>
-                    <img src={`/JSON_recipes/Les_petits_plats.png`} alt="Les Petits Plats — accueil" />
+                    <Image src={`/JSON_recipes/Les_petits_plats.png`} alt="Les Petits Plats — accueil" width={181} height={26} />
                 </Link>
-                <img className={styles.bannerImage} src={`/JSON_recipes/lampos-aritonang-24gR_9lCdes-unsplash 1.png`} alt="" />
+                <Image className={styles.bannerImage} src={`/JSON_recipes/lampos-aritonang-24gR_9lCdes-unsplash 1.png`} alt="" fill sizes="100vw" />
             </header>
             <article className={styles.recipe}>
-                <img className={styles.recipeImage} src={`/JSON_recipes/${recipe.image}`} alt={recipe.name} />
+                <div className={styles.recipeImageContainer}>
+                    <Image
+                        className={styles.recipeImage}
+                        src={`/JSON_recipes/${recipe.image}`}
+                        alt={recipe.name}
+                        fill
+                        sizes="(max-width: 700px) calc(100vw - 48px), (max-width: 1100px) calc((100vw - 120px) / 2), (max-width: 1440px) calc((100vw - 260px) / 2), 590px"
+                        preload
+                    />
+                </div>
                 <div className={styles.details}>
                     <h1>{recipe.name}</h1>
                     <section>
