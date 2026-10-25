@@ -174,3 +174,93 @@ a.secondary {
   padding: 0.1em 0.4em;
   border-radius: 6px;
 }
+
+@font-face {
+  font-family: "Not Found Anton";
+  src: url("/fonts/Anton-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  color-scheme: light;
+}
+
+/* La photo et le message occupent la meme zone, au-dessus du footer. */
+.notFoundContent {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 667px;
+  padding: 160px 24px 110px;
+  text-align: center;
+  font-family: "Not Found Anton", Impact, sans-serif;
+}
+
+.notFoundBackground {
+  z-index: -1;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.4);
+}
+
+.notFoundLogo {
+  position: absolute;
+  top: 50px;
+  left: 70px;
+  width: 207px;
+  height: auto;
+}
+
+.notFoundContent > h2 {
+  margin: 0;
+  color: #ffd15b;
+  font-size: 72px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.notFoundContent > h2 span {
+  white-space: nowrap;
+}
+
+.notFoundContent > p {
+  max-width: 1100px;
+  margin: 0;
+  color: #fff;
+  font-size: 40px;
+  line-height: 1.4;
+}
+
+@media (max-width: 650px) {
+  .notFoundContent {
+    min-height: 480px;
+    padding: 130px 24px 80px;
+  }
+
+  .notFoundLogo {
+    top: 28px;
+    left: 24px;
+    width: 181px;
+  }
+
+  .notFoundContent > h2 {
+    font-size: 56px;
+  }
+
+  .notFoundContent > p {
+    font-size: 28px;
+  }
+}

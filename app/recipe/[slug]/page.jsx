@@ -3,18 +3,23 @@ import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
 import Recipes from "@/app/data/recipes.json";
+import { notFound } from "next/navigation";
 
 
 export default async function Page({ params }) {
     const { slug } = await params;
     const recipe = Recipes.find((recipe) => recipe.slug === slug);
 
+    if (!recipe) {
+        notFound();
+    }
+
     return (
 
         <div className={styles.page}>
             <header className={styles.header}>
                 <Link href="/" className={styles.logoLink}>
-                    <Image src={`/JSON_recipes/Les_petits_plats.png`} alt="Les Petits Plats — accueil" width={181} height={26} />
+                    <Image src="/logo-les-petits-plats-assiette.png" alt="Les Petits Plats — accueil" width={207} height={26} />
                 </Link>
                 <Image className={styles.bannerImage} src={`/JSON_recipes/lampos-aritonang-24gR_9lCdes-unsplash 1.png`} alt="" fill sizes="100vw" />
             </header>
