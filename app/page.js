@@ -10,11 +10,11 @@ export default function Home() {
     <main >
       <Header />
       <Filters />
-      <section className={styles.cardsGrid}>
+      <div className={styles.cardsGrid}>
         {recipes.map((recipe) => (
           <Cards key={recipe.id} recipe={recipe} />
         ))}
-      </section>
+      </div>
       <Footer />
     </main>
   );
