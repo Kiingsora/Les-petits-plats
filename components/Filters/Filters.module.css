@@ -15,8 +15,6 @@
 }
 
 .filters {
-  position: relative;
-  z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 195px)) minmax(0, 1fr);
   align-items: start;
@@ -64,10 +62,6 @@
   transform: translateY(-3px) rotate(45deg);
 }
 
-.filter[open] {
-  z-index: 10;
-}
-
 .filter[open] > summary::after {
   transform: translateY(3px) rotate(225deg);
 }
@@ -78,7 +72,7 @@
   border-radius: 11px;
 }
 
-/* Le menu ouvert passe au-dessus des cartes sans les deplacer. */
+/* Un menu ferme masque son contenu ; ouvert, il repousse les cartes. */
 .filter:not([open]) > .filterContent {
   display: none;
 }
@@ -88,14 +82,35 @@
 }
 
 .filterContent {
-  position: absolute;
-  top: calc(100% - 8px);
-  left: 0;
-  right: 0;
+  position: relative;
   padding: 8px 0 16px;
   border-radius: 0 0 11px 11px;
   background: #fff;
-  box-shadow: 0 14px 20px rgb(0 0 0 / 7%);
+}
+
+/* La loupe reste dans le champ sans empecher la saisie. */
+.filterContent::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #7a7a7a;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.filterContent::after {
+  content: "";
+  position: absolute;
+  top: 31px;
+  right: 22px;
+  width: 8px;
+  height: 1px;
+  background: #7a7a7a;
+  transform: rotate(45deg);
+  pointer-events: none;
 }
 
 .filterContent input {
@@ -104,7 +119,7 @@
   min-width: 0;
   height: 38px;
   margin: 0 16px 16px;
-  padding: 8px;
+  padding: 8px 36px 8px 8px;
   border: 1px solid #c6c6c6;
   border-radius: 2px;
   background: #fff;

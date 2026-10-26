@@ -8,7 +8,7 @@ export default function Header() {
             <h1>DECOUVREZ NOS RECETTES
                 DU QUOTIDIEN, SIMPLES ET DELICIEUSES</h1>
             <input type="text" placeholder="Rechercher une recette, un ingrédient..." />
-            <button>O</button>
+            <button type="button" aria-label="Rechercher"></button>
         </header>
     );
 }
