@@ -1,6 +1,35 @@
+"use client"
 import recipes from "@/app/data/recipes.json";
 import styles from "./Filters.module.css"
+import { useState } from "react"
+
+
 export default function Filters() {
+
+    const ingredient = recipes.flatMap((recipe) => {
+        return recipe.ingredients.map((ingredient) => {
+            return ingredient.ingredient.toLowerCase().trim();
+        })
+    })
+    const appliance = recipes.map((recipe) => {
+        return recipe.appliance.toLowerCase().trim();
+    })
+
+    const ustensil = recipes.flatMap((recipe) => {
+        return recipe.ustensils.map((ustensil) => {
+            return ustensil.toLowerCase().trim();
+        })
+    })
+
+    const uniqueIngredients = [...new Set(ingredient)];
+    const uniqueAppliances = [...new Set(appliance)];
+    const uniqueUstensils = [...new Set(ustensil)];
+
+    console.log(uniqueIngredients);
+    const [searchIngredient, setSearchIngredient] = useState("");
+    const [searchAppliance, setSearchAppliance] = useState("");
+    const [searchUstensil, setSearchUstensil] = useState("");
+
     return (
         <section className={styles.filters}>
             <details className={styles.filter}>
@@ -10,16 +39,17 @@ export default function Filters() {
                         type="search"
                         placeholder="Rechercher..."
                         aria-label="Rechercher un ingrédient"
+                        value={searchIngredient}
+                        onChange={(event) => setSearchIngredient(event.target.value)}
                     />
                     <ul>
-                        {recipes.map((recipe) => {
-                            return recipe.ingredients.map((ingredient, index) => {
-                                return (
-                                    <li key={`${recipe.id}-${index}`}>
-                                        <p>{ingredient.ingredient}</p>
-                                    </li>)
-                            })
-                        })}
+                        {uniqueIngredients.filter((ingredient) => {
+                            return ingredient.toLowerCase().includes(searchIngredient.toLowerCase())
+                        }).map((ingredient) => {
+                            return (
+                                <li key={`${ingredient}`}> <p>{ingredient}</p> </li>)
+                        })
+                        }
                     </ul>
                 </div>
             </details>
@@ -30,13 +60,17 @@ export default function Filters() {
                         type="search"
                         placeholder="Rechercher..."
                         aria-label="Rechercher un appareil"
+                        value={searchAppliance}
+                        onChange={(event) => setSearchAppliance(event.target.value)}
                     />
                     <ul>
-                        {recipes.map((recipe) => (
-                            <li key={recipe.id}>
-                                <p>{recipe.appliance}</p>
-                            </li>
-                        ))}
+                        {uniqueAppliances.filter((appliance) => {
+                            return appliance.toLowerCase().includes(searchAppliance.toLowerCase())
+                        }).map((appliance) => {
+                            return (
+                            <li key={`${appliance}`}> <p>{appliance}</p> </li>)
+                        })
+                        }
                     </ul>
                 </div>
             </details>
@@ -47,16 +81,17 @@ export default function Filters() {
                         type="search"
                         placeholder="Rechercher..."
                         aria-label="Rechercher un ustensile"
+                        value={searchUstensil}
+                        onChange={(event) => setSearchUstensil(event.target.value)}
                     />
                     <ul>
-                        {recipes.map((recipe) => {
-                            return recipe.ustensils.map((ustensil, index) => {
+                        { uniqueUstensils.filter((ustensil) => {
+                                return ustensil.toLowerCase().includes(searchUstensil.toLowerCase())
+                            }).map((ustensil) => {
                                 return (
-                                    <li key={`${recipe.id}-${index}`}>
-                                        <p>{ustensil}</p>
-                                    </li>)
+                                    <li key={`${ustensil}`}> <p>{ustensil}</p></li>)
                             })
-                        })}
+                        }
                     </ul>
                 </div>
             </details>
