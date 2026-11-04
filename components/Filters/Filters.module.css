@@ -16,9 +16,12 @@
 
 .filters {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 195px)) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "menus count"
+    "tags tags";
   align-items: start;
-  gap: 32px 64px;
+  gap: 20px 32px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 40px 70px 20px;
@@ -26,6 +29,15 @@
   color: #1b1b1b;
   font-family: "Filters Manrope", Arial, sans-serif;
   color-scheme: light;
+}
+
+.menus {
+  grid-area: menus;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 195px));
+  align-items: start;
+  gap: 64px;
+  min-width: 0;
 }
 
 .filter {
@@ -144,14 +156,33 @@
 }
 
 .filterContent li {
-  padding: 10px 24px;
+  padding: 0;
   font-size: 16px;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
-.filterContent li:hover {
+.filterContent li > button {
+  display: block;
+  width: 100%;
+  padding: 10px 24px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.filterContent li > button:hover,
+.filterContent li > button:focus-visible {
   background: #ffd15b;
+}
+
+.filterContent li > button:focus-visible {
+  outline: 2px solid #1b1b1b;
+  outline-offset: -2px;
 }
 
 .filterContent p {
@@ -159,6 +190,7 @@
 }
 
 .count {
+  grid-area: count;
   align-self: center;
   justify-self: end;
   margin: 0;
@@ -167,28 +199,89 @@
   white-space: nowrap;
 }
 
+.selectedFilters {
+  grid-area: tags;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-width: 0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 100%;
+  min-height: 53px;
+  padding: 8px 16px 8px 18px;
+  border-radius: 10px;
+  background: #ffd15b;
+  font-size: 14px;
+}
+
+.tag > span {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.tag > button {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #1b1b1b;
+  font: inherit;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tag > button:hover {
+  background: rgb(0 0 0 / 10%);
+}
+
+.tag > button:focus-visible {
+  outline: 2px solid #1b1b1b;
+  outline-offset: 2px;
+}
+
 @media (max-width: 1100px) {
-  .filters {
+  .menus {
     gap: 24px;
   }
 }
 
 @media (max-width: 1000px) {
   .filters {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) auto;
     padding: 30px 30px 10px;
   }
 
-  .count {
-    grid-column: 1 / -1;
+  .menus {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 650px) {
   .filters {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "menus"
+      "count"
+      "tags";
     gap: 16px;
     padding: 24px 20px 0;
+  }
+
+  .menus {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .count {
