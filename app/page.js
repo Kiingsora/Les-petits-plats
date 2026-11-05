@@ -72,8 +72,9 @@ export default function Home() {
         selectedUstensils={selectedUstensils}
         setSelectedUstensils={setSelectedUstensils}
         recipeCount={filteredRecipes.length}
+        availableRecipes={filteredRecipes}
       />
-      
+
       <div className={styles.cardsGrid}>
         {filteredRecipes.map((recipe) => (
           <Cards key={recipe.id} recipe={recipe} />

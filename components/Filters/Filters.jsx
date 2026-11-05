@@ -10,27 +10,29 @@ export default function Filters({
     setSelectedAppliances,
     selectedUstensils,
     setSelectedUstensils,
-    recipeCount
+    recipeCount,
+    availableRecipes
 }) {
     // Prépare la liste des ingrédients ; minuscules et trim évitent les différences de casse et d'espaces.
-    const ingredient = recipes.flatMap((recipe) => {
+    const ingredient = availableRecipes.flatMap((recipe) => {
         return recipe.ingredients.map((ingredient) => {
             return ingredient.ingredient.toLowerCase().trim();
         })
     })
     // Prépare la liste des appareils à partir de l'appareil indiqué dans chaque recette.
-    const appliance = recipes.map((recipe) => {
+    const appliance = availableRecipes.map((recipe) => {
         return recipe.appliance.toLowerCase().trim();
     })
 
     // Prépare une seule liste d'ustensiles en regroupant ceux de toutes les recettes.
-    const ustensil = recipes.flatMap((recipe) => {
+    const ustensil = availableRecipes.flatMap((recipe) => {
         return recipe.ustensils.map((ustensil) => {
             return ustensil.toLowerCase().trim();
         })
     })
 
     // création d'un nouveau tableau sans les doublons.
+
     const uniqueIngredients = [...new Set(ingredient)];
     const uniqueAppliances = [...new Set(appliance)];
     const uniqueUstensils = [...new Set(ustensil)];
