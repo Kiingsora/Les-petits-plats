@@ -9,7 +9,8 @@ export default function Filters({
     selectedAppliances,
     setSelectedAppliances,
     selectedUstensils,
-    setSelectedUstensils
+    setSelectedUstensils,
+    recipeCount
 }) {
     // Prépare la liste des ingrédients ; minuscules et trim évitent les différences de casse et d'espaces.
     const ingredient = recipes.flatMap((recipe) => {
@@ -124,7 +125,7 @@ export default function Filters({
                 </details>
             </div>
             {/* Indique le nombre total de recettes ; le filtrage des cartes reste à connecter aux sélections. */}
-            <p className={styles.count}>{recipes.length} recettes</p>
+            <p className={styles.count}>{recipeCount} recettes</p>
             {(selectedIngredients.length > 0 || selectedAppliances.length > 0 || selectedUstensils.length > 0) && (
                 <div className={styles.selectedFilters} aria-label="Filtres sélectionnés">
                     {selectedIngredients.map((ingredient) => (
