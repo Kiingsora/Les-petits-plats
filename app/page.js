@@ -9,14 +9,45 @@ import recipes from "@/app/data/recipes.json";
 
 export default function Home() {
 
-  // Home mémorise les tags sélectionnés pour les partager entre les menus et le filtrage des cartes.
+  //FILTRE : Home mémorise les tags sélectionnés pour les partager entre les menus et le filtrage des cartes.
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedAppliances, setSelectedAppliances] = useState([]);
   const [selectedUstensils, setSelectedUstensils] = useState([]);
-  console.log("Ingrédients sélectionnés :", selectedIngredients);
+
+  // HEADER :
+  const [searchRecipe, setSearchRecipe] = useState("");
+
+  // Uniformise les textes pour ignorer les majuscules et les accents.
+  const normalizeText = (text) => {
+    return text.toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  };
+
+  const normalizedSearch = normalizeText(searchRecipe);
+
   // Examine chaque recette : true la conserve dans le nouveau tableau, false l'écarte.
   const filteredRecipes = recipes.filter((recipe) => {
-    // pas de tag sélectionné = toutes les recettes reste affichées.
+    if (normalizedSearch.length >= 3) {
+      const matchName = normalizeText(recipe.name).includes(normalizedSearch);
+      const matchDescription = normalizeText(recipe.description).includes(normalizedSearch);
+
+      let matchesIngredient = false;
+
+      for (const ingredient of recipe.ingredients) {
+        if (normalizeText(ingredient.ingredient).includes(normalizedSearch)) {
+          matchesIngredient = true;
+          break;
+        }
+      }
+      // Aucun champ ne correspond : on écarte la recette.
+      if (!matchName && !matchDescription && !matchesIngredient) {
+        return false;
+      }
+    }
+
+    // pas de tag sélectionné => toutes les recettes restent affichées.
     if (
       selectedIngredients.length === 0 &&
       selectedAppliances.length === 0 &&
@@ -60,9 +91,15 @@ export default function Home() {
     return true;
   });
 
+  let message = null;
+
+  if (filteredRecipes.length === 0) {
+    message = "Aucune recette ne correspond à votre recherche.";
+  }
+
   return (
     <main >
-      <Header />
+      <Header searchRecipe={searchRecipe} setSearchRecipe={setSearchRecipe} />
       {/* Transmet les sélections, leurs fonctions de mise à jour et le nombre de résultats aux menus. */}
       <Filters
         selectedIngredients={selectedIngredients}
@@ -74,13 +111,13 @@ export default function Home() {
         recipeCount={filteredRecipes.length}
         availableRecipes={filteredRecipes}
       />
-
-      <div className={styles.cardsGrid}>
-        {filteredRecipes.map((recipe) => (
-          <Cards key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
-      <Footer />
+      {message}
+        <div className={styles.cardsGrid}>
+          {filteredRecipes.map((recipe) => (
+            <Cards key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+        <Footer />
     </main>
   );
 }
